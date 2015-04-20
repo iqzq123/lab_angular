@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Lab</title>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+</head>
+<body ng-app ng-controller="PhoneListCtrl">
+<input ng-model="query" />
+<select ng-model="sortType">
+	<option value="name">按名字排序</option>
+	<option value="age">按年龄排序</option>
+</select>
+<ul>
+	<li ng-repeat="phone in phones | filter:query | orderBy:sortType">
+	{{phone.name}} - {{phone.snippet}} - {{phone.age}}
+	</li>
+</ul>
+<script type="text/javascript">
+	var PhoneListCtrl = ['$scope', '$http', function($scope, $http) {
+		$http.get('../json/test-1.json').success(function(data) {
+			$scope.phones = data;
+		});
+		$scope.sortType = 'age';
+	}];
+</script>
+</body>
+</html>
